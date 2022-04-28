@@ -17,9 +17,15 @@ public class Register : MonoBehaviour {
     private string ConfPassword;
     private string form;
     private bool EmailValid = false;
+    private string[] Characters ={"a","b","c","d","e",
+    "f","g","h","i","j","k","l","m","n","o","p",
+    "q","r","s","t","u","v","w","x","y","z"
+    ,"A","B","C","D","E","F","G","H","I",
+    "J","K","L","M","N","O","P","Q","R",
+    "S","T","U","V","W","X","Y","Z","0",
+    "1","2","3","4","5","6","7","8","9","_","-"};
 
     
-
 
 
     // Start is called before the first frame update
@@ -35,7 +41,7 @@ public class Register : MonoBehaviour {
 
 
         if(Username!=""){
-          if(System.IO.File.Exists(@"D:/UnityFolder" +Username+ ".txt")){
+          if(!System.IO.File.Exists(@"D:/UnityFolder" +Username+ ".txt")){
             UN = true;
             Debug.Log("File exists");
          }
@@ -47,6 +53,7 @@ public class Register : MonoBehaviour {
         }
 
         if(Email!=""){
+            EmailValidation();
             if(EmailValid){
                 if(Email.Contains("@")){
                     if(Email.Contains(".")){
@@ -65,7 +72,77 @@ public class Register : MonoBehaviour {
         }else{
             Debug.LogWarning("Email is empty");
         }
-       
+
+        if(Password !=""){
+            if(Password.Length>=8){
+                PW = true;
+        }
+        else{
+            Debug.LogWarning("Password is too short");
+        }
+        }else{
+            Debug.LogWarning("Password is empty");
+        }
+
+        if(ConfPassword!=""){
+            if(ConfPassword == Password){
+                CPW = true;
+            }
+            else{
+                Debug.LogWarning("Passwords do not match");
+            }   
+        } else{
+                Debug.LogWarning("Confirm Password is empty");
+        }
+
+        if(UN==true && EM==true && PW==true && CPW==true){
+            bool Clear = true;
+            int i =1;
+            foreach (char c in Password){
+                if(Clear){
+                    Password= "";
+                    Clear = false;
+                }
+                i++;
+                char Encrypted =(char)(c*i);
+                Password+=Encrypted.ToString();
+
+
+            } 
+            form=(Username+"\n"+Email+"\n"+Password);
+            System.IO.File.WriteAllText(@"D:/UnityFolder" +Username+ ".txt", form);
+            username.GetComponent<InputField>().text= "";
+            email.GetComponent<InputField>().text= "";
+            password.GetComponent<InputField>().text= "";
+            confPassword.GetComponent<InputField>().text= "";
+            print("Registration Successful");
+
+    }
+    void EmailValidation(){
+        bool SW=false;
+        bool EW=false;
+        for(int i =0;i<Characters.Length;i++){
+            if(Email.StartsWith(Characters[i])){
+                SW = true;
+            }
+        }
+         for(int i =0;i<Characters.Length;i++){
+            if(Email.EndsWith(Characters[i])){
+                EW = true;
+            }
+        }
+        if(SW==true && EW==true){
+            EmailValid = true;
+        }
+        else{
+            EmailValid = false;
+        }
+
+
+        }
+
+    
+        
     
     }
 
