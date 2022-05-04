@@ -45,6 +45,8 @@ public class MarklessAR : MonoBehaviour
 
         gyro = Input.gyro;
         gyro.enabled = true;
+        cameraContainer.transform.rotation = Quaternion.Euler(90f,0,0);
+        rotation = new Quaternion(0,0,1,0);
 
         cam.Play();
         background.texture = cam;
