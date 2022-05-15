@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Next.unity
     guid: 08eb1c8266a8056428cf1d1bbac7bb56
+  - enabled: 1
+    path: Assets/Scenes/Braganca.unity
+    guid: 9598efb0370aca242808323e3cc60f84
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 414be28463715a645aac4ab86777555f, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 9fdf6d86fc76e6c4f828b8c07496437e, type: 2}
